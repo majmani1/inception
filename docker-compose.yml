@@ -1,39 +1,45 @@
 version: '3.8'
 services:
-  mariadb :
+  mariadb:
     image: mariadb
-    container_name: mari
-    build : /home/majmani/Desktop/inception/mariadb
-    networks :
+    container_name: mariadb
+    build: /home/majmani/Desktop/inception/mariadb
+    networks:
       - mynetwork
-    volumes :
+    volumes:
       - data:/var/lib/mysql
+    env_file:
+      - .env
 
-  wordpress :
+  wordpress:
     image: wordpress
     container_name: word
-    build : /home/majmani/Desktop/inception/wordpress
-    ports :
+    build: /home/majmani/Desktop/inception/wordpress
+    ports:
       - '9000:9000'
-    networks :
+    networks:
       - mynetwork
-    volumes :
+    volumes:
       - data2:/var/www/html
     depends_on:
       - mariadb 
+    env_file:
+      - .env
 
-  nginx :
+  nginx:
     image: nginx
     container_name: nginx
-    build : /home/majmani/Desktop/inception/nginx
-    ports :
+    build: /home/majmani/Desktop/inception/nginx
+    ports:
       - '443:443'
-    networks :
+    networks:
       - mynetwork
-    volumes :
+    volumes:
       - data2:/var/www/html
     depends_on:
       - wordpress
+    env_file:
+      - .env
 
 networks:
   mynetwork:

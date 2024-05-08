@@ -1,30 +1,10 @@
-# openssl req -x509 -nodes -sha256 -days 1825 -keyout $KEY -out $CERTS_ -subj="/";
+#!/bin/bash
 
-# rm -f /etc/nginx/conf.d/default.conf 
-# touch etc/nginx/conf.d/default.conf 
-# # Create Nginx configuration file
-# cat <<EOF > /etc/nginx/conf.d/tt.conf
-# server {
-#     listen 443 ssl;
+openssl req -x509 -nodes -newkey rsa:2048 -days 365 -keyout ${KEY} -out ${CERTIF} -subj "/CN=${DOMAINE_NAME}"
 
-#     ssl_certificate ${CERTS_};
-#     ssl_certificate_key ${KEY};
-#     ssl_protocols TLSv1.3;
-#    server_name ${SERVER_NAME};
-#     root /var/www/html/;
-#     index index.php;
-
-#     location / {
-#         try_files $uri $uri/ =404;
-#     }
-
-#      location ~ \.php$ {
-#         include /etc/nginx/snippets/fastcgi-php.conf;
-#         fastcgi_pass word:9000;
-#     }
-# }
-
-# EOF
+sed -i "s|ssl_certificate ll|ssl_certificate ${CERTIF}|" /etc/nginx/conf.d/default.conf
+sed -i "s|ssl_certificate_key oo|ssl_certificate_key ${KEY}|" /etc/nginx/conf.d/default.conf
+sed -i "s|server_name  name;|server_name  ${DOMAINE_NAME};|" /etc/nginx/conf.d/default.conf
 
 
-# exec nginx -g "daemon off;"
+exec nginx -g  "daemon off;"
