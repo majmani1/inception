@@ -13,5 +13,5 @@ GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';
 FLUSH PRIVILEGES;
 "
 service mariadb stop
-mysqld_safe
+exec mysqld_safe
 

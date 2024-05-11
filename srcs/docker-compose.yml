@@ -3,24 +3,24 @@ services:
   mariadb:
     image: mariadb
     container_name: mariadb
-    build: /home/majmani/Desktop/inception/mariadb
+    build: ./requirements/mariadb
     networks:
       - mynetwork
     volumes:
-      - data:/var/lib/mysql
+      - mariadb:/var/lib/mysql
     env_file:
       - .env
 
   wordpress:
     image: wordpress
-    container_name: word
-    build: /home/majmani/Desktop/inception/wordpress
+    container_name: wordpress
+    build: ./requirements/wordpress
     ports:
       - '9000:9000'
     networks:
       - mynetwork
     volumes:
-      - data2:/var/www/html
+      - wordpress:/var/www/html
     depends_on:
       - mariadb 
     env_file:
@@ -29,13 +29,13 @@ services:
   nginx:
     image: nginx
     container_name: nginx
-    build: /home/majmani/Desktop/inception/nginx
+    build: ./requirements/nginx
     ports:
       - '443:443'
     networks:
       - mynetwork
     volumes:
-      - data2:/var/www/html
+      - wordpress:/var/www/html
     depends_on:
       - wordpress
     env_file:
@@ -47,7 +47,18 @@ networks:
     driver: bridge
 
 volumes:
-  data:
-    name: data
-  data2:
-    name: data2
+  mariadb:
+    driver: local
+    name: mariadb
+    driver_opts:
+      type: none
+      device: /home/majmani/data/mariadb
+      o: bind
+  wordpress:
+    driver: local
+    name: wordpress
+    driver_opts:
+      type: none
+      device: /home/majmani/data/wordpress
+      o: bind
+

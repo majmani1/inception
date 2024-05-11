@@ -14,12 +14,12 @@ RUN chmod +x wp-cli.phar
 
 RUN  mv wp-cli.phar /usr/local/bin/wp
 
-
-# ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/bin/php"
-
 COPY script.sh /bin/
+
 RUN mkdir -p /run/php/
+
 RUN chmod +x /bin/script.sh
+
 WORKDIR /var/www/html
 
 
