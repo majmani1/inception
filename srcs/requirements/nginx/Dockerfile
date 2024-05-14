@@ -6,7 +6,7 @@ RUN mkdir /etc/nginx/cert
 
 COPY default.conf /etc/nginx/conf.d/default.conf 
 
-COPY script.sh .
+COPY ./tools/script.sh .
 
 RUN chmod +x script.sh
 

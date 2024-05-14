@@ -14,7 +14,7 @@ RUN chmod +x wp-cli.phar
 
 RUN  mv wp-cli.phar /usr/local/bin/wp
 
-COPY script.sh /bin/
+COPY ./tools/script.sh /bin/
 
 RUN mkdir -p /run/php/
 
