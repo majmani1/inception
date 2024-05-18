@@ -8,5 +8,5 @@ wp core download --allow-root
 sed -i 's|listen = /run/php/php7.4-fpm.sock|listen = wordpress:9000|' /etc/php/7.4/fpm/pool.d/www.conf
 wp config create --dbhost=mariadb --dbname=${DB_NAME}  --dbuser=${DB_USER} --dbpass=${DB_PASS} --allow-root
 wp core install --url=${DOMAINE_NAME} --title="WP-CLI" --admin_user=${ADMIN_USER} --admin_password=${ADMIN_PASSWORD} --admin_email=${ADMIN_EMAIL} --allow-root
-wp user create ayoub ayoub@wp.com --user_pass=123 --allow-root
+wp user create ${DB_USER} ${USER_EMAIL} --user_pass=${DB_PASS} --allow-root
 exec php-fpm7.4 -F
